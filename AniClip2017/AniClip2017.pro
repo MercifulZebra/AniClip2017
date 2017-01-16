@@ -14,9 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    logger.cpp
+    logger.cpp \
+    clipinfoedit.cpp \
+    autocompleteredit.cpp
 
 HEADERS  += mainwindow.h \
-    logger.h
+    logger.h \
+    clipinfoedit.h \
+    autocompleteredit.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    clipinfoedit.ui
