@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     logger.cpp \
     clipinfoedit.cpp \
-    autocompleteredit.cpp
+    autocompleteredit.cpp \
+    clipdatabase.cpp
 
 HEADERS  += mainwindow.h \
     logger.h \
     clipinfoedit.h \
-    autocompleteredit.h
+    autocompleteredit.h \
+    clipdatabase.h
 
 FORMS    += mainwindow.ui \
     clipinfoedit.ui

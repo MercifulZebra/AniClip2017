@@ -119,7 +119,7 @@ void Logger::debug(QString nMsg) {
 void Logger::info(QString nMsg) {
     if (log_pool.empty()) {
         if (!allocateItems(numAllocated_items)) {
-            qDebug () << "Unable to allocate new Items";
+            qDebug() << "Unable to allocate new Items";
             error_flag = true;
         }
     }
@@ -131,7 +131,7 @@ void Logger::info(QString nMsg) {
         nItem->msg = "INFO - " + nMsg;
 
         log.append(nItem);
-        qDebug() << nItem->msg;
+        qDebug().noquote() << nItem->msg;
     }
 }
 
