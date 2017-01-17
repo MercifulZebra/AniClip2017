@@ -44,6 +44,7 @@ public:
     void err(QString nMsg);
 
     QStringList getLogString();
+    QString getLogError();
 
     QVector<LogItem*> log;
     QVector<LogItem*> log_pool;

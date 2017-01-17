@@ -8,38 +8,67 @@
 #include "ui_clipinfoedit.h"
 
 #include <QStringListModel>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    log(NULL),
+    clipDatabase(NULL)
 {
     ui->setupUi(this);
+    log = new logger::Logger(this);
 
-    logger::Logger *log = new logger::Logger(this);
-
-    ClipDatabase *db = new ClipDatabase(this, log);
-    TimeBound temp;
-
-    QVector<QString> list1;
-    list1 << "Test List 1" << "Test List 2";
-
-    QVector<QString> list2;
-    list2 << list1 << "Test List 3";
-
-    db->addNewClip("Test Show 1", 1, temp, list1);
-    db->addNewClip("Test Show 2", 1, temp, list2);
-
-    QStringList list;
-    list << "Word1" << "Word2" << "Word3";
-
-    QStringListModel *tagModel = new QStringListModel(this);
-    tagModel->setStringList(list);
-
-    ui->ClipEdit->setTagCompleterModel(tagModel);
+    centralStack = new QStackedWidget(this);
+    setCentralWidget(centralStack);
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+bool MainWindow::init(QString config_filename)
+{
+    bool initSuccess_flag = true;
+
+    if (log != NULL) {
+
+        //Init Clip Database
+        {
+            bool clipDbSuccess_flag = false;
+
+            clipDatabase = new ClipDatabase(this, log);
+            if (clipDatabase != NULL) {
+                if (clipDatabase->init(config_filename)) {
+                    clipDbSuccess_flag = true;
+                }
+                else {
+                    log->err("MainWindow.init(): Failed to initialize ClipDatabase.");
+                }
+            }
+
+            initSuccess_flag &= clipDbSuccess_flag;
+        }
+    }
+    else {
+        initSuccess_flag = false;
+    }
+
+    return initSuccess_flag;
+
+}
+
+QString MainWindow::getError() {
+    QString rString = "";
+
+    if (log != NULL) {
+        rString = log->getLogError();
+    }
+    else {
+        rString = "Logger failed to initialize.";
+    }
+
+    return  rString;
 }

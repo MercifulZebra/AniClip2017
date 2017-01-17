@@ -17,13 +17,19 @@ SOURCES += main.cpp\
     logger.cpp \
     clipinfoedit.cpp \
     autocompleteredit.cpp \
-    clipdatabase.cpp
+    clipdatabase.cpp \
+    videocontrols.cpp
 
 HEADERS  += mainwindow.h \
     logger.h \
     clipinfoedit.h \
     autocompleteredit.h \
-    clipdatabase.h
+    clipdatabase.h \
+    videocontrols.h
 
 FORMS    += mainwindow.ui \
-    clipinfoedit.ui
+    clipinfoedit.ui \
+    videocontrols.ui
+
+DISTFILES += \
+    aniclip_config.txt

@@ -184,3 +184,16 @@ QStringList Logger::getLogString() {
 
     return rList;
 }
+
+QString Logger::getLogError() {
+    QString rList;
+
+    for (int i = 0; i < log.count(); i++) {
+        if (log.at(i)->type == LogType::LOG_ERROR) {
+            rList.append(log.at(i)->msg);
+            rList.append("\n");
+        }
+    }
+
+    return rList;
+}

@@ -58,26 +58,6 @@ void AutoCompleterEdit::keyPressEvent(QKeyEvent *e) {
                 + localCompleter->popup()->verticalScrollBar()->sizeHint().width());
     localCompleter->complete(cr); // popup it up!
 
-//    if (event->key() == Qt::Key_Enter       ||
-//            event->key() == Qt::Key_Tab     ||
-//            event->key() == Qt::Key_Return  ||
-//            event->key() == Qt::Key_Escape) {
-//        event->ignore();
-//    }
-
-//    QLineEdit::keyPressEvent(event);
-
-//    QString completionPrefix = textUnderCursor();
-
-//    if (completionPrefix != localCompleter->completionPrefix()) {
-//        updateCompleterPopupItems(completionPrefix);
-//    }
-//    if (event->text().length() > 0 && completionPrefix.length() > 0) {
-//        localCompleter->complete();
-//    }
-//    else if (completionPrefix.length() == 0) {
-//        localCompleter->popup()->hide();
-//    }
 }
 
 QString AutoCompleterEdit::textUnderCursor() {

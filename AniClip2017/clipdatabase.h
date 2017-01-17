@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVector>
 #include <QTime>
+#include <QStringList>
 
 namespace logger {
     class Logger;
@@ -14,17 +15,68 @@ struct TimeBound {
     QTime endTime;
 };
 
+class TagGroup : public QObject
+{
+    Q_OBJECT
+public:
+    explicit TagGroup(logger::Logger *nLog, QObject *parent = 0);
+
+    bool setName(QString nName);
+
+    bool addTag(QString nTag);
+    bool removeTag(QString nTag);
+
+    QStringList getTags();
+    QString getName();
+
+    bool addGroup(TagGroup oGroup);
+
+
+private:
+    logger::Logger *log;
+
+    QString     groupName;
+    QStringList groupTags;
+
+signals:
+
+public slots:
+
+};
+
+class TagManager : public QObject
+{
+    Q_OBJECT
+public:
+    explicit TagManager(logger::Logger *nLog, QObject *parent = 0);
+
+    bool readTagLine(QString line);
+private:
+    logger::Logger *log;
+
+    bool containsGroup(QString nName);
+
+    QVector<TagGroup*> groups;
+
+signals:
+
+public slots:
+
+};
+
 class Clip : public QObject
 {
     Q_OBJECT
 public:
-    explicit Clip(QObject *parent = 0);
+    explicit Clip(logger::Logger *nLog, QObject *parent = 0);
 
     void setShowName(QString nShowName);
     void setEpNum(int nEpNum);
     void setTimeBound(TimeBound nTimeBound);
 
 private:
+    logger::Logger *log;
+
     QString     showName;
     int         epNum;
     TimeBound   bounds;
@@ -38,9 +90,11 @@ class ShowList : public QObject
 {
     Q_OBJECT
 public:
-    explicit ShowList(QObject *parent = 0);
+    explicit ShowList(logger::Logger *nLog, QObject *parent = 0);
 
 private:
+    logger::Logger *log;
+
     QString showName;
 signals:
 
@@ -51,7 +105,7 @@ class ClipList : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClipList(QObject *parent = 0);
+    explicit ClipList(logger::Logger *nLog, QObject *parent = 0);
 
     bool addClip(Clip* nClip);
 
@@ -60,6 +114,8 @@ public:
     void setName(QString nName);
 
 private:
+    logger::Logger *log;
+
     QString listName;
 
 signals:
@@ -71,21 +127,26 @@ class ClipDatabase : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClipDatabase(QObject *parent = 0, logger::Logger *nLog = 0);
+    explicit ClipDatabase(logger::Logger *nLog, QObject *parent = 0);
 
-    bool init();
+    bool init(QString config_filename);
+
+    bool loadShowList(QString showList_filename);
+    bool loadTagList(QString tagList_filename);
 
     Clip* addNewClip(QString showName, int epNum, TimeBound time, QVector<QString> nLists);
     void  addExistingClip(Clip* nClip, QVector<ClipList*> nLists);
 
 private:
-
     logger::Logger *log;
 
     ClipList* main_list;
+    QStringList existingShows;
 
     QVector<Clip*> used_clips;
     QVector<ClipList*> sub_lists;
+
+    TagManager *tagManager;
 
 signals:
 
