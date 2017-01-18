@@ -1,1 +1,3 @@
 ## aniclip_config.txt
+
+tags_filename               tagList_config.txt

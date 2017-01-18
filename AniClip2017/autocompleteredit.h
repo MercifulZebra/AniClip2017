@@ -17,6 +17,7 @@ public:
 
     QString textUnderCursor();
     void updateCompleterPopupItems(QString prefix);
+    bool nextCompletion();
 
 
     QCompleter *localCompleter;

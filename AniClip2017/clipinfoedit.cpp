@@ -14,5 +14,5 @@ ClipInfoEdit::~ClipInfoEdit()
 }
 
 void ClipInfoEdit::setTagCompleterModel(QAbstractItemModel *model) {
-    ui->TagLineEdit->localCompleter->setModel(model);
+    ui->tagLineEdit->localCompleter->setModel(model);
 }

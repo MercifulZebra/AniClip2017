@@ -12,7 +12,7 @@ log(nLog)
 
 }
 
-bool TagGroup::setName(QString nName) {
+void TagGroup::setName(QString nName) {
     groupName = nName;
 }
 
@@ -22,6 +22,15 @@ bool TagGroup::addTag(QString nTag) {
         groupTags.append(nTag);
         addSuccess_flag = true;
     }
+    return addSuccess_flag;
+}
+
+bool TagGroup::addTags(QStringList nTags) {
+    bool addSuccess_flag = true;
+
+    groupTags.append(nTags);
+    groupTags.removeDuplicates();
+
     return addSuccess_flag;
 }
 
@@ -65,8 +74,25 @@ bool TagManager::readTagLine(QString line) {
     QStringList split = line.split(":");
 
     if (split.count() == 2) {
+        QString nName = "";
+        QString nTags = "";
+        QStringList tagList;
+
         if (split.at(0).startsWith("name=")) {
-            QString nName = split.at(0).right(split.at(0).length() - 5);
+            nName = split.at(0).right(split.at(0).length() - 5);
+        }
+
+        if (split.at(1).startsWith("tags=")) {
+            nTags = split.at(1).right(split.at(1).length() - 5);
+            tagList = nTags.split("|");
+        }
+
+        if (!nTags.isEmpty() && !nName.isEmpty()) {
+            TagGroup *nGroup = new TagGroup(log, this);
+            nGroup->setName(nName);
+            nGroup->addTags(tagList);
+            groups.append(nGroup);
+            log->info(QString("Created new TagGroup %1. Added %2 tags.").arg(nGroup->getName()).arg(nGroup->getTags().count()));
         }
     }
     else {
@@ -120,7 +146,7 @@ ClipList::ClipList(logger::Logger *nLog, QObject *parent) : QObject(parent),
 
 }
 
-bool ClipList::addClip(Clip *nClip) {
+bool ClipList::addClip(Clip* /*nClip*/) {
     bool addSuccess_flag = true;
 
 
@@ -141,15 +167,32 @@ ClipDatabase::ClipDatabase(logger::Logger *nLog, QObject *parent) : QObject(pare
     existingShows(),
     used_clips(),
     sub_lists(),
-    tagManager(NULL)
+    tagManager(NULL),
+    tags_filename(),
+    shows_filename()
 {
-    tagManager = new TagManager(this);
+    tagManager = new TagManager(nLog, this);
 }
 
 bool ClipDatabase::init(QString config_filename) {
     bool initSuccess_flag = true;
 
     if (log != NULL) {
+
+        if (readConfig(config_filename)) {
+            log->info("ClipDatabase.init: Read config file.");
+        }
+        else {
+            log->err("ClipDatabase.init: Failed to read config file");
+            initSuccess_flag = false;
+        }
+
+        if (loadTagList(tags_filename)) {
+            log->info(QString("ClipDatabase.init: Loaded Tag file \"%1\"").arg(tags_filename));
+        }
+        else {
+            log->warn(QString("ClipDatabase.init: Failed to load Tag File \"%1\".").arg(tags_filename));
+        }
 
     }
     else {
@@ -160,7 +203,45 @@ bool ClipDatabase::init(QString config_filename) {
     return initSuccess_flag;
 }
 
-bool ClipDatabase::loadShowList(QString showList_filename) {
+bool ClipDatabase::readConfig(QString config_filename) {
+    bool readSuccess_flag = true;
+
+    QFile dbConfig(config_filename);
+    if (dbConfig.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream tStream(&dbConfig);
+
+        while(!tStream.atEnd()) {
+            QString line = tStream.readLine();
+
+            if (!line.isEmpty() && !line.startsWith('#')) {
+                QStringList lineSplit = line.split(QRegExp("\\s+"));
+
+                if (lineSplit.count() >= 2) {
+                    QString id = lineSplit.at(0).trimmed();
+                    QString input = lineSplit.at(1).trimmed();
+
+                    if(id == "tags_filename") {
+                        tags_filename = input;
+                    }
+                    else if (id == "shows_filename") {
+                        shows_filename = input;
+                    }
+
+                }
+            }
+        }
+
+    }
+    else {
+        log->err(QString("Clipdatabase.init: Failed to open config file \"%1\".").arg(config_filename));
+        readSuccess_flag = false;
+    }
+
+    return readSuccess_flag;
+
+}
+
+bool ClipDatabase::loadShowList(QString /*showList_filename*/) {
     bool importSuccess_flag = false;
 
 
@@ -171,23 +252,30 @@ bool ClipDatabase::loadTagList(QString tagList_filename) {
     bool importSuccess_flag = true;
 
     if (tagManager != NULL) {
-        QFile tagFile(tagList_filename);
-        if (tagFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            log->info(QString("Opened %1 for tag import.").arg(tagList_filename));
+        if (!tagList_filename.isEmpty()) {
+            QFile tagFile(tagList_filename);
+            if (tagFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                log->info(QString("Opened %1 for tag import.").arg(tagList_filename));
 
-            QTextStream tStream(&tagFile);
+                QTextStream tStream(&tagFile);
 
-            while(!tStream.atEnd()) {
-                QString line = tStream.readLine();
+                while(!tStream.atEnd()) {
+                    QString line = tStream.readLine();
 
-                if (!line.isEmpty() && !line.startsWith('#')) {
-                    tagManager->readTagLine(line);
+                    if (!line.isEmpty() && !line.startsWith('#')) {
+                        tagManager->readTagLine(line);
+                    }
                 }
-            }
 
+            }
+            else {
+                log->warn(QString("ClipDatabase.loadTagList: Unable to open file \"%1\" for tag import.").arg(tagList_filename));
+                importSuccess_flag = false;
+            }
         }
         else {
-            log->warn(QString("Unable to open file \"%1\" for tag import.").arg(tagList_filename));
+            log->warn(QString("ClipDatabase.loadTagList: No TagList in config file"));
+            importSuccess_flag = false;
         }
     }
     else{
@@ -202,7 +290,7 @@ bool ClipDatabase::loadTagList(QString tagList_filename) {
 Clip* ClipDatabase::addNewClip(QString showName, int epNum, TimeBound time, QVector<QString> nLists) {
 
     int numListsAdded = 0;
-    Clip* rClip = new Clip(this);
+    Clip* rClip = new Clip(log, this);
 
     rClip->setShowName(showName);
     rClip->setEpNum(epNum);
@@ -231,7 +319,7 @@ Clip* ClipDatabase::addNewClip(QString showName, int epNum, TimeBound time, QVec
 
         if (!nLists.empty()) {
             for (int i = 0; i < nLists.count(); i++) {
-                ClipList* nList = new ClipList(this);
+                ClipList* nList = new ClipList(log, this);
                 nList->setName(nLists.at(i));
                 sub_lists.append(nList);
 
@@ -256,6 +344,6 @@ Clip* ClipDatabase::addNewClip(QString showName, int epNum, TimeBound time, QVec
     return rClip;
 }
 
-void  ClipDatabase::addExistingClip(Clip* nClip, QVector<ClipList*> nLists) {
+void  ClipDatabase::addExistingClip(Clip* /*nClip*/, QVector<ClipList*> /*nLists*/) {
 
 }

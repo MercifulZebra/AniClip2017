@@ -18,6 +18,7 @@ SOURCES += main.cpp\
     clipinfoedit.cpp \
     autocompleteredit.cpp \
     clipdatabase.cpp \
+    addscreenwidget.cpp \
     videocontrols.cpp
 
 HEADERS  += mainwindow.h \
@@ -25,10 +26,12 @@ HEADERS  += mainwindow.h \
     clipinfoedit.h \
     autocompleteredit.h \
     clipdatabase.h \
+    addscreenwidget.h \
     videocontrols.h
 
 FORMS    += mainwindow.ui \
     clipinfoedit.ui \
+    addscreenwidget.ui \
     videocontrols.ui
 
 DISTFILES += \

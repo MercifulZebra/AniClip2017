@@ -39,7 +39,7 @@
     <number>0</number>
    </property>
    <item row="1" column="0">
-    <widget class="QWidget" name="widget_6" native="true">
+    <widget class="QWidget" name="container" native="true">
      <layout class="QGridLayout" name="gridLayout_7">
       <property name="leftMargin">
        <number>0</number>
@@ -54,10 +54,10 @@
        <number>0</number>
       </property>
       <item row="0" column="0" alignment="Qt::AlignTop">
-       <widget class="QWidget" name="widget_3" native="true">
+       <widget class="QWidget" name="subcontainer" native="true">
         <layout class="QGridLayout" name="gridLayout_6">
          <item row="1" column="0">
-          <widget class="QWidget" name="widget_5" native="true">
+          <widget class="QWidget" name="sourceContainer" native="true">
            <layout class="QGridLayout" name="gridLayout_5">
             <property name="leftMargin">
              <number>2</number>
@@ -75,7 +75,7 @@
              <number>9</number>
             </property>
             <item row="2" column="0" rowspan="2">
-             <widget class="QLabel" name="label_2">
+             <widget class="QLabel" name="noteLabel">
               <property name="text">
                <string>No note set...</string>
               </property>
@@ -85,7 +85,7 @@
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QLineEdit" name="lineEdit_4">
+             <widget class="QLineEdit" name="localEdit">
               <property name="placeholderText">
                <string>Local Source ...</string>
               </property>
@@ -98,28 +98,28 @@
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="noteEditButton">
               <property name="text">
                <string>Edit Note</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0" colspan="2">
-             <widget class="QLineEdit" name="lineEdit_5">
+             <widget class="QLineEdit" name="linkEdit">
               <property name="placeholderText">
                <string>Link / Url</string>
               </property>
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QPushButton" name="pushButton_4">
+             <widget class="QPushButton" name="noteClearButton">
               <property name="text">
                <string>Clear Note</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QPushButton" name="pushButton_5">
+             <widget class="QPushButton" name="localBrowseButton">
               <property name="text">
                <string>Browse ...</string>
               </property>
@@ -129,7 +129,7 @@
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QWidget" name="widget_2" native="true">
+          <widget class="QWidget" name="detailContainer" native="true">
            <layout class="QGridLayout" name="gridLayout_3">
             <property name="leftMargin">
              <number>2</number>
@@ -147,7 +147,7 @@
              <number>9</number>
             </property>
             <item row="0" column="0" alignment="Qt::AlignTop">
-             <widget class="QWidget" name="widget" native="true">
+             <widget class="QWidget" name="keyContainer" native="true">
               <layout class="QGridLayout" name="gridLayout_2">
                <property name="leftMargin">
                 <number>0</number>
@@ -162,7 +162,7 @@
                 <number>0</number>
                </property>
                <item row="0" column="0" colspan="3">
-                <widget class="QLineEdit" name="lineEdit">
+                <widget class="QLineEdit" name="nameEdit">
                  <property name="minimumSize">
                   <size>
                    <width>200</width>
@@ -175,7 +175,7 @@
                 </widget>
                </item>
                <item row="0" column="4">
-                <widget class="QLineEdit" name="lineEdit_2">
+                <widget class="QLineEdit" name="epEdit">
                  <property name="maximumSize">
                   <size>
                    <width>60</width>
@@ -191,7 +191,7 @@
                 </widget>
                </item>
                <item row="0" column="6">
-                <widget class="QTimeEdit" name="timeEdit_2">
+                <widget class="QTimeEdit" name="startEdit">
                  <property name="maximumSize">
                   <size>
                    <width>100</width>
@@ -204,14 +204,14 @@
                 </widget>
                </item>
                <item row="0" column="7">
-                <widget class="QTimeEdit" name="timeEdit">
+                <widget class="QTimeEdit" name="endEdit">
                  <property name="displayFormat">
                   <string>mm:ss</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="8">
-                <widget class="QComboBox" name="comboBox">
+                <widget class="QComboBox" name="seasonCombo">
                  <property name="editable">
                   <bool>false</bool>
                  </property>
@@ -250,7 +250,7 @@
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QWidget" name="widget_4" native="true">
+             <widget class="QWidget" name="tagContainer" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -271,7 +271,7 @@
                 <number>0</number>
                </property>
                <item row="0" column="0">
-                <widget class="AutoCompleterEdit" name="TagLineEdit">
+                <widget class="AutoCompleterEdit" name="tagLineEdit">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -290,7 +290,7 @@
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QPushButton" name="pushButton">
+                <widget class="QPushButton" name="addButton">
                  <property name="maximumSize">
                   <size>
                    <width>70</width>
@@ -303,7 +303,7 @@
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QPushButton" name="pushButton_2">
+                <widget class="QPushButton" name="editButton">
                  <property name="maximumSize">
                   <size>
                    <width>70</width>
@@ -316,7 +316,7 @@
                 </widget>
                </item>
                <item row="0" column="2" rowspan="2">
-                <widget class="QLabel" name="label">
+                <widget class="QLabel" name="tagLabel">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                    <horstretch>0</horstretch>
@@ -338,10 +338,6 @@
              </widget>
             </item>
            </layout>
-           <zorder>widget</zorder>
-           <zorder>widget</zorder>
-           <zorder>widget</zorder>
-           <zorder>widget_4</zorder>
           </widget>
          </item>
         </layout>
@@ -359,6 +355,21 @@
    <header>autocompleteredit.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>nameEdit</tabstop>
+  <tabstop>epEdit</tabstop>
+  <tabstop>startEdit</tabstop>
+  <tabstop>endEdit</tabstop>
+  <tabstop>seasonCombo</tabstop>
+  <tabstop>tagLineEdit</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>editButton</tabstop>
+  <tabstop>localEdit</tabstop>
+  <tabstop>localBrowseButton</tabstop>
+  <tabstop>linkEdit</tabstop>
+  <tabstop>noteEditButton</tabstop>
+  <tabstop>noteClearButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

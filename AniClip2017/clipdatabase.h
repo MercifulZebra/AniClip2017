@@ -21,9 +21,10 @@ class TagGroup : public QObject
 public:
     explicit TagGroup(logger::Logger *nLog, QObject *parent = 0);
 
-    bool setName(QString nName);
+    void setName(QString nName);
 
     bool addTag(QString nTag);
+    bool addTags(QStringList nTags);
     bool removeTag(QString nTag);
 
     QStringList getTags();
@@ -96,6 +97,7 @@ private:
     logger::Logger *log;
 
     QString showName;
+    QVector<Clip*> clips;
 signals:
 
 public slots:
@@ -117,6 +119,7 @@ private:
     logger::Logger *log;
 
     QString listName;
+    QVector<ShowList*> shows;
 
 signals:
 
@@ -130,6 +133,7 @@ public:
     explicit ClipDatabase(logger::Logger *nLog, QObject *parent = 0);
 
     bool init(QString config_filename);
+    bool readConfig(QString config_filename);
 
     bool loadShowList(QString showList_filename);
     bool loadTagList(QString tagList_filename);
@@ -147,6 +151,9 @@ private:
     QVector<ClipList*> sub_lists;
 
     TagManager *tagManager;
+
+    QString tags_filename;
+    QString shows_filename;
 
 signals:
 

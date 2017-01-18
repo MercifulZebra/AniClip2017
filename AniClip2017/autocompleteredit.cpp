@@ -22,8 +22,8 @@ void AutoCompleterEdit::keyPressEvent(QKeyEvent *e) {
        case Qt::Key_Enter:
        case Qt::Key_Return:
        case Qt::Key_Escape:
-       case Qt::Key_Tab:
        case Qt::Key_Backtab:
+       case Qt::Key_Tab:
             e->ignore();
             return; // let the completer do default behavior
        default:
@@ -43,7 +43,7 @@ void AutoCompleterEdit::keyPressEvent(QKeyEvent *e) {
     bool hasModifier = (e->modifiers() != Qt::NoModifier) && !ctrlOrShift;
     QString completionPrefix = textUnderCursor();
 
-    if (!isShortcut && (hasModifier || e->text().isEmpty()|| completionPrefix.length() < 3
+    if (!isShortcut && (hasModifier || e->text().isEmpty() || completionPrefix.length() < 1
                       || eow.contains(e->text().right(1)))) {
         localCompleter->popup()->hide();
         return;
@@ -57,7 +57,6 @@ void AutoCompleterEdit::keyPressEvent(QKeyEvent *e) {
     cr.setWidth(localCompleter->popup()->sizeHintForColumn(0)
                 + localCompleter->popup()->verticalScrollBar()->sizeHint().width());
     localCompleter->complete(cr); // popup it up!
-
 }
 
 QString AutoCompleterEdit::textUnderCursor() {
@@ -77,6 +76,22 @@ QString AutoCompleterEdit::textUnderCursor() {
 void AutoCompleterEdit::updateCompleterPopupItems(QString prefix) {
     localCompleter->setCompletionPrefix(prefix);
     localCompleter->setCurrentRow(0);
+}
+
+bool AutoCompleterEdit::nextCompletion() {
+    bool accepted_flag = false;
+
+    if (localCompleter->popup()->isVisible()) {
+        QModelIndex index = localCompleter->currentIndex();
+        localCompleter->popup()->setCurrentIndex(index);
+        int start = localCompleter->currentRow();
+        if (!localCompleter->setCurrentRow(start + 1)) {
+            localCompleter->setCurrentRow(1);
+        }
+        accepted_flag = true;
+    }
+
+    return accepted_flag;
 }
 
 void AutoCompleterEdit::insertCompletion(QString completion) {

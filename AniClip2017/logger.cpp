@@ -93,7 +93,7 @@ void Logger::trace(QString nMsg) {
         nItem->msg = "TRACE - " + nMsg;
 
         log.append(nItem);
-        qDebug() << nItem->msg;
+        qDebug().noquote() << nItem->msg;
     }
 }
 
@@ -112,7 +112,7 @@ void Logger::debug(QString nMsg) {
         nItem->msg = "DEBUG - " + nMsg;
 
         log.append(nItem);
-        qDebug() << nItem->msg;
+        qDebug().noquote() << nItem->msg;
     }
 }
 
@@ -128,7 +128,7 @@ void Logger::info(QString nMsg) {
         LogItem* nItem = log_pool.takeLast();
 
         nItem->type = LogType::LOG_INFO;
-        nItem->msg = "INFO - " + nMsg;
+        nItem->msg = "INFO  - " + nMsg;
 
         log.append(nItem);
         qDebug().noquote() << nItem->msg;
@@ -147,10 +147,10 @@ void Logger::warn(QString nMsg) {
         LogItem* nItem = log_pool.takeLast();
 
         nItem->type = LogType::LOG_WARN;
-        nItem->msg = "WARN - " + nMsg;
+        nItem->msg = "WARN  - " + nMsg;
 
         log.append(nItem);
-        qDebug() << nItem->msg;
+        qDebug().noquote() << nItem->msg;
     }
 }
 
@@ -169,7 +169,7 @@ void Logger::err(QString nMsg) {
         nItem->msg = "ERROR - " + nMsg;
 
         log.append(nItem);
-        qDebug() << nItem->msg;
+        qDebug().noquote() << nItem->msg;
     }
 
 }

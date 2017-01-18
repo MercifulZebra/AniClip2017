@@ -39,7 +39,7 @@ bool MainWindow::init(QString config_filename)
         {
             bool clipDbSuccess_flag = false;
 
-            clipDatabase = new ClipDatabase(this, log);
+            clipDatabase = new ClipDatabase(log, this);
             if (clipDatabase != NULL) {
                 if (clipDatabase->init(config_filename)) {
                     clipDbSuccess_flag = true;
