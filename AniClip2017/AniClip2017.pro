@@ -18,21 +18,24 @@ SOURCES += main.cpp\
     clipinfoedit.cpp \
     autocompleteredit.cpp \
     clipdatabase.cpp \
-    addscreenwidget.cpp \
-    videocontrols.cpp
+#    addscreenwidget.cpp \
+    videocontrols.cpp \
+    debugwidget.cpp
 
 HEADERS  += mainwindow.h \
     logger.h \
     clipinfoedit.h \
     autocompleteredit.h \
     clipdatabase.h \
-    addscreenwidget.h \
-    videocontrols.h
+#    addscreenwidget.h \
+    videocontrols.h \
+    debugwidget.h
 
 FORMS    += mainwindow.ui \
     clipinfoedit.ui \
-    addscreenwidget.ui \
-    videocontrols.ui
+#    addscreenwidget.ui \
+    videocontrols.ui \
+    debugwidget.ui
 
 DISTFILES += \
     aniclip_config.txt

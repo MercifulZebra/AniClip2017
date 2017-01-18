@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QStackedWidget>
 
+class DebugWidget;
+
 namespace logger {
 class Logger;
 }
@@ -21,17 +23,25 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void closeEvent(QCloseEvent *event);
 
     bool init(QString config_filename);
     QString getError();
 
 
+private slots:
+    //void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     logger::Logger *log;
 
-    QStackedWidget *centralStack;
     ClipDatabase *clipDatabase;
+
+    QStackedWidget *centralStack;
+
+    DebugWidget *debugWidget;
+
 };
 
 #endif // MAINWINDOW_H

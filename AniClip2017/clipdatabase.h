@@ -135,6 +135,9 @@ public:
     bool init(QString config_filename);
     bool readConfig(QString config_filename);
 
+    void save();
+    void writeBackup();
+
     bool loadShowList(QString showList_filename);
     bool loadTagList(QString tagList_filename);
 
@@ -152,6 +155,7 @@ private:
 
     TagManager *tagManager;
 
+    QString clips_filename;
     QString tags_filename;
     QString shows_filename;
 

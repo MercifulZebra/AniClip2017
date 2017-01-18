@@ -7,14 +7,22 @@
 #include "clipinfoedit.h"
 #include "ui_clipinfoedit.h"
 
+#include "debugwidget.h"
+#include "ui_debugwidget.h"
+
 #include <QStringListModel>
 #include <QMessageBox>
+#include <QFileDialog>
+
+#include <QCloseEvent>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     log(NULL),
-    clipDatabase(NULL)
+    clipDatabase(NULL),
+    centralStack(NULL),
+    debugWidget(NULL)
 {
     ui->setupUi(this);
     log = new logger::Logger(this);
@@ -27,6 +35,11 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::closeEvent(QCloseEvent* /*event*/) {
+
+    clipDatabase->save();
 }
 
 bool MainWindow::init(QString config_filename)
@@ -47,6 +60,11 @@ bool MainWindow::init(QString config_filename)
                 else {
                     log->err("MainWindow.init(): Failed to initialize ClipDatabase.");
                 }
+
+
+                debugWidget = new DebugWidget(log, clipDatabase, this);
+                centralStack->addWidget(debugWidget);
+                centralStack->setCurrentIndex(0);
             }
 
             initSuccess_flag &= clipDbSuccess_flag;
@@ -72,3 +90,5 @@ QString MainWindow::getError() {
 
     return  rString;
 }
+
+

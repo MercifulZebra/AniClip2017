@@ -3,8 +3,10 @@
 
 #include <QDebug>
 #include <QString>
-#include <QFile>
 #include <QTextStream>
+
+#include <QFile>
+#include <QDir>
 
 TagGroup::TagGroup(logger::Logger *nLog, QObject *parent) : QObject(parent),
 log(nLog)
@@ -169,9 +171,13 @@ ClipDatabase::ClipDatabase(logger::Logger *nLog, QObject *parent) : QObject(pare
     sub_lists(),
     tagManager(NULL),
     tags_filename(),
-    shows_filename()
+    shows_filename(),
+    clips_filename()
 {
     tagManager = new TagManager(nLog, this);
+    tags_filename = "activeTagList.txt";
+    shows_filename = "activeShowList.txt";
+    clips_filename = "activeClipDB.txt";
 }
 
 bool ClipDatabase::init(QString config_filename) {
@@ -220,7 +226,10 @@ bool ClipDatabase::readConfig(QString config_filename) {
                     QString id = lineSplit.at(0).trimmed();
                     QString input = lineSplit.at(1).trimmed();
 
-                    if(id == "tags_filename") {
+                    if (id == "clips_filename") {
+                        clips_filename = input;
+                    }
+                    else if(id == "tags_filename") {
                         tags_filename = input;
                     }
                     else if (id == "shows_filename") {
@@ -241,8 +250,117 @@ bool ClipDatabase::readConfig(QString config_filename) {
 
 }
 
-bool ClipDatabase::loadShowList(QString /*showList_filename*/) {
+void ClipDatabase::save() {
+    log->info(QString("Saving ClipDatabase to file %1.").arg(clips_filename));
+
+    log->info(QString("Saving ShowList to file %1.").arg(shows_filename));
+
+    log->info(QString("Saving TagList to file %1.").arg(tags_filename));
+    writeBackup();
+}
+
+void ClipDatabase::writeBackup() {
+    QDir cDir;
+    cDir.setPath(QDir::currentPath() + "/backup");
+    QString nBackup = QString("/backup_%1").arg(QDateTime::currentDateTime().toString("ddMMYY_mmss"));
+
+    if (!cDir.exists()) {
+        if (!cDir.mkpath(nBackup)) {
+            log->err(QString("Unable to create backup folder \"%1\"").arg(nBackup));
+        }
+    }
+
+    QFile clipFile(clips_filename);
+    if (clipFile.exists()) {
+        QString bFile =QString("backup/" + clips_filename);
+        if (!clipFile.copy(bFile)) {
+            log->err(QString("Unable to backup ClipDB %1").arg(bFile));
+        }
+    }
+    else {
+        log->err(QString("Could not find file \"%1\" for backup.").arg(clips_filename));
+    }
+
+    QFile tagsFile(tags_filename);
+    if (tagsFile.exists()) {
+        QString bFile =QString("backup/" + tags_filename);
+        if (!tagsFile.copy(bFile)) {
+            log->err(QString("Unable to backup TagList %1").arg(bFile));
+        }
+    }
+    else {
+        log->err(QString("Could not find file \"%1\" for backup.").arg(tags_filename));
+    }
+
+    QFile showsFile(shows_filename);
+    if (showsFile.exists()) {
+        QString bFile =QString("backup/" + shows_filename);
+        if (!showsFile.copy(bFile)) {
+            log->err(QString("Unable to backup ShowList %1").arg(bFile));
+        }
+    }
+    else {
+        log->err(QString("Could not find file \"%1\" for backup.").arg(shows_filename));
+    }
+}
+
+bool ClipDatabase::loadShowList(QString showList_filename) {
     bool importSuccess_flag = false;
+
+    if (showList_filename.endsWith(".xml")) {
+        log->info(QString("Attempting to load shows from MAL xml file %1.").arg(showList_filename));
+        int startCount = existingShows.count();
+
+        QFile nFile(showList_filename);
+        int count = 0;
+        if (nFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            importSuccess_flag = true;
+            QTextStream nStream(&nFile);
+
+            while (!nStream.atEnd()) {
+
+                QString line = nStream.readLine();
+                if (!line.isEmpty() && line.contains(QString("<series_title>"))) {
+                    int startBound = line.indexOf("<![CDATA[");
+                    int boundLength = 9;
+                    int endBound = line.indexOf("]]></series_title");
+
+                    QString title = line.mid(startBound + boundLength, endBound - (startBound + boundLength));
+                    existingShows.append(title);
+                }
+            }
+        }
+
+        existingShows.removeDuplicates();
+        int diff = existingShows.count() - startCount;
+        log->info(QString("Added %1 new shows.").arg(diff));
+    }
+    else if (showList_filename.endsWith(".txt")) {
+        log->info(QString("Attempting to load shows from txt file %1").arg(showList_filename));
+        int startCount = existingShows.count();
+
+        QFile showFile(showList_filename);
+        if (showFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            importSuccess_flag = true;
+
+            QTextStream tStream(&showFile);
+
+            while(!tStream.atEnd()) {
+                QString line = tStream.readLine();
+
+                if (!line.isEmpty() && !line.startsWith('#')) {
+                    existingShows.append(line.trimmed());
+                }
+            }
+        }
+
+        existingShows.removeDuplicates();
+        int diff = existingShows.count() - startCount;
+        log->info(QString("Added %1 new shows.").arg(diff));
+    }
+    else {
+        log->warn(QString("Unrecognized Show file type in file %1").arg(showList_filename));
+    }
 
 
     return importSuccess_flag;
@@ -295,6 +413,10 @@ Clip* ClipDatabase::addNewClip(QString showName, int epNum, TimeBound time, QVec
     rClip->setShowName(showName);
     rClip->setEpNum(epNum);
     rClip->setTimeBound(time);
+
+    if (!existingShows.contains(showName)) {
+        existingShows.append(showName);
+    }
 
     if (main_list->addClip(rClip)) {
 
