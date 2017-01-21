@@ -52,12 +52,17 @@ public:
     explicit TagManager(logger::Logger *nLog, QObject *parent = 0);
 
     bool readTagLine(QString line);
+    bool addTag(QString tag, QString groupName = "");
+    TagGroup* addGroup(QString nGroupName);
+    TagGroup* getGroup(QString groupName);
+
+    QVector<TagGroup*> groups;
+
 private:
     logger::Logger *log;
 
     bool containsGroup(QString nName);
 
-    QVector<TagGroup*> groups;
 
 signals:
 
@@ -93,6 +98,8 @@ class ShowList : public QObject
 public:
     explicit ShowList(logger::Logger *nLog, QObject *parent = 0);
 
+    QString getName();
+
 private:
     logger::Logger *log;
 
@@ -115,6 +122,8 @@ public:
     QString getName();
     void setName(QString nName);
 
+    ShowList* getShowList(QString show_name);
+
 private:
     logger::Logger *log;
 
@@ -134,10 +143,15 @@ public:
 
     bool init(QString config_filename);
     bool readConfig(QString config_filename);
+    void selfTest();
 
     void save();
+    void saveClips();
+    void saveShows();
+    void saveTags();
     void writeBackup();
 
+    bool loadClips(QString clipList_filename);
     bool loadShowList(QString showList_filename);
     bool loadTagList(QString tagList_filename);
 
@@ -145,6 +159,8 @@ public:
     void  addExistingClip(Clip* nClip, QVector<ClipList*> nLists);
 
 private:
+    Clip* clipExists(Clip* test_clip);
+
     logger::Logger *log;
 
     ClipList* main_list;
