@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QTime>
 #include <QStringList>
+#include <QTextStream>
 
 namespace logger {
     class Logger;
@@ -80,12 +81,22 @@ public:
     void setEpNum(int nEpNum);
     void setTimeBound(TimeBound nTimeBound);
 
-private:
-    logger::Logger *log;
+    void writeClipToFile(QTextStream &nStream);
+
+    bool compareClip(Clip *oClip);
 
     QString     showName;
     int         epNum;
     TimeBound   bounds;
+    QString     season;
+    QStringList tags;
+    QString     localSrc;
+    QString     link;
+    QString     note;
+
+private:
+    logger::Logger *log;
+
 signals:
 
 public slots:
@@ -98,13 +109,20 @@ class ShowList : public QObject
 public:
     explicit ShowList(logger::Logger *nLog, QObject *parent = 0);
 
+    bool addClip(Clip *nClip);
+
+    void writeListToFile(QTextStream &nStream);
     QString getName();
+    void setName(QString nName);
+
+    QVector<Clip*> clips;
 
 private:
+    void insertClip(Clip *nClip);
+
     logger::Logger *log;
 
     QString showName;
-    QVector<Clip*> clips;
 signals:
 
 public slots:
@@ -118,11 +136,14 @@ public:
 
     bool addClip(Clip* nClip);
 
+    void writeListToFile(QTextStream &nStream);
+
     //Get Functions
     QString getName();
     void setName(QString nName);
 
     ShowList* getShowList(QString show_name);
+
 
 private:
     logger::Logger *log;
@@ -156,10 +177,13 @@ public:
     bool loadTagList(QString tagList_filename);
 
     Clip* addNewClip(QString showName, int epNum, TimeBound time, QVector<QString> nLists);
+    Clip* addNewClip(QString clipLine, QVector<QString> nLists);
     void  addExistingClip(Clip* nClip, QVector<ClipList*> nLists);
 
+    ClipList* initMainList();
+
 private:
-    Clip* clipExists(Clip* test_clip);
+    Clip* clipExists(QString tShowName, int tEpNum, TimeBound tTime);
 
     logger::Logger *log;
 
