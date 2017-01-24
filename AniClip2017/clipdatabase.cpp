@@ -920,3 +920,7 @@ Clip* ClipDatabase::clipExists(QString tShowName, int tEpNum, TimeBound tTime) {
 
     return rClip;
 }
+
+TagManager* ClipDatabase::getTagManager() {
+    return tagManager;
+}

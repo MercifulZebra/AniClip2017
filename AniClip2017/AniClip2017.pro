@@ -18,22 +18,22 @@ SOURCES += main.cpp\
     clipinfoedit.cpp \
     autocompleteredit.cpp \
     clipdatabase.cpp \
-#    addscreenwidget.cpp \
     videocontrols.cpp \
-    debugwidget.cpp
+    debugwidget.cpp \
+    tagtreewidget.cpp
+    tagtreewidget.cpp
 
 HEADERS  += mainwindow.h \
     logger.h \
     clipinfoedit.h \
     autocompleteredit.h \
     clipdatabase.h \
-#    addscreenwidget.h \
     videocontrols.h \
+    tagtreewidget.h \
     debugwidget.h
 
 FORMS    += mainwindow.ui \
     clipinfoedit.ui \
-#    addscreenwidget.ui \
     videocontrols.ui \
     debugwidget.ui
 

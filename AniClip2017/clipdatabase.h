@@ -182,6 +182,8 @@ public:
 
     ClipList* initMainList();
 
+    TagManager *getTagManager();
+
 private:
     Clip* clipExists(QString tShowName, int tEpNum, TimeBound tTime);
 
@@ -200,6 +202,7 @@ private:
     QString shows_filename;
 
 signals:
+    void infoUpdated();
 
 public slots:
 };
