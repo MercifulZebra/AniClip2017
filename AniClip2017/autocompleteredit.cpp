@@ -24,6 +24,7 @@ void AutoCompleterEdit::keyPressEvent(QKeyEvent *e) {
        case Qt::Key_Escape:
        case Qt::Key_Backtab:
        case Qt::Key_Tab:
+       case Qt::Key_Bar:
             e->ignore();
             return; // let the completer do default behavior
        default:

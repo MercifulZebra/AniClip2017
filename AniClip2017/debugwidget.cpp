@@ -24,10 +24,12 @@ void DebugWidget::on_pushButton_clicked()
 {
         QString fileString = QFileDialog::getOpenFileName(this, "TestCaption", "", tr("Show Files (*.xml *.txt)"));
 
-        if (clipDB->loadShowList(fileString)) {
-            log->info("Loaded Shows Successfully.");
-        }
-        else {
-            log->err("Failed to load shows.");
+        if (!fileString.isEmpty()) {
+            if (clipDB->loadShowList(fileString)) {
+                log->info("Loaded Shows Successfully.");
+            }
+            else {
+                log->err("Failed to load shows.");
+            }
         }
 }

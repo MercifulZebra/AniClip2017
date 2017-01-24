@@ -19,8 +19,11 @@ SOURCES += main.cpp\
     autocompleteredit.cpp \
     clipdatabase.cpp \
     videocontrols.cpp \
+    addtextscreen.cpp \
+    viewscreen.cpp \
+    viewshowscreen.cpp \
+    rotatedbutton.cpp \
     debugwidget.cpp \
-    tagtreewidget.cpp
     tagtreewidget.cpp
 
 HEADERS  += mainwindow.h \
@@ -29,13 +32,20 @@ HEADERS  += mainwindow.h \
     autocompleteredit.h \
     clipdatabase.h \
     videocontrols.h \
-    tagtreewidget.h \
-    debugwidget.h
+    debugwidget.h \
+    addtextscreen.h \
+    viewscreen.h \
+    viewshowscreen.h \
+    rotatedbutton.h \
+    tagtreewidget.h
 
 FORMS    += mainwindow.ui \
     clipinfoedit.ui \
     videocontrols.ui \
-    debugwidget.ui
+    debugwidget.ui \
+    addtextscreen.ui \
+    viewscreen.ui \
+    viewshowscreen.ui
 
 DISTFILES += \
     aniclip_config.txt

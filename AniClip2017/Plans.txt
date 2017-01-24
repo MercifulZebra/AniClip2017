@@ -1,0 +1,19 @@
+Screens 
+Add Clips through text
+Add Clips through Video
+Edit Clips text (or delete)
+Search Clips
+right click to add to list/ delete / edit clips
+View All Clips (Sort by show, season, length)
+View All Shows (Sort alphabetically, Sort num clips)
+View All Tags (Sort by Group, Alphabetical)
+manage tags [dual blocks >> << style]
+
+side button toggle tag browser
+rightclick (Search for tag, search for group)
+Settings
+
+
+Functions
+View and edit in video window
+AutoParse clips

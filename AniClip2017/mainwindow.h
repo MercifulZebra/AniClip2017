@@ -5,6 +5,8 @@
 #include <QStackedWidget>
 
 class DebugWidget;
+class AddTextScreen;
+class ViewScreen;
 
 namespace logger {
 class Logger;
@@ -29,8 +31,10 @@ public:
     QString getError();
 
 
-private slots:
-    //void on_pushButton_clicked();
+public slots:
+    //void setMainScreen();
+    //void setAddScreen();
+    //void setVideoAddScreen();
 
 private:
     Ui::MainWindow *ui;
@@ -40,7 +44,10 @@ private:
 
     QStackedWidget *centralStack;
 
+
     DebugWidget *debugWidget;
+    AddTextScreen *addTextScreen;
+    ViewScreen *viewScreen;
 
 };
 

@@ -114,6 +114,15 @@ bool TagManager::addTag(QString tag, QString groupName) {
     return nGroup->addTag(tag);
 }
 
+bool TagManager::addTags(QStringList tags, QString groupName) {
+    if (!groupName.isEmpty()) {
+        groupName = "General";
+    }
+
+    TagGroup *nGroup = getGroup(groupName);
+    return nGroup->addTags(tags);
+}
+
 TagGroup* TagManager::addGroup(QString nGroupName) {
     TagGroup *rGroup = NULL;
     if (!containsGroup(nGroupName)) {
@@ -858,6 +867,8 @@ Clip* ClipDatabase::addNewClip(QString clipLine, QVector<QString> nLists) {
             rClip->season = nSeason;
             rClip->tags.append(tagSplit);
             rClip->tags.removeDuplicates();
+
+            tagManager->addTags(tagSplit);
             if (!rClip->localSrc.isEmpty() && nSource != rClip->localSrc) {
                 log->warn(QString("New Source does not match existing source. Curr=%1 New=%2").arg(rClip->localSrc).arg(nSource));
             }

@@ -54,6 +54,7 @@ public:
 
     bool readTagLine(QString line);
     bool addTag(QString tag, QString groupName = "");
+    bool addTags(QStringList tags, QString groupName = "");
     TagGroup* addGroup(QString nGroupName);
     TagGroup* getGroup(QString groupName);
 

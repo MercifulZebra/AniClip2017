@@ -10,6 +10,12 @@
 #include "debugwidget.h"
 #include "ui_debugwidget.h"
 
+#include "addtextscreen.h"
+#include "ui_addtextscreen.h"
+
+#include "viewscreen.h"
+#include "tagtreewidget.h"
+
 #include <QStringListModel>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -62,9 +68,15 @@ bool MainWindow::init(QString config_filename)
                 }
 
 
-                debugWidget = new DebugWidget(log, clipDatabase, this);
-                centralStack->addWidget(debugWidget);
+                viewScreen = new ViewScreen(this);
+                centralStack->addWidget(viewScreen);
                 centralStack->setCurrentIndex(0);
+
+                TagTreeWidget* test = new TagTreeWidget(this);
+                for (int i =0; i < 20; i++) {
+                    test->testAdd();
+                    test->testClear();
+                }
             }
 
             initSuccess_flag &= clipDbSuccess_flag;
