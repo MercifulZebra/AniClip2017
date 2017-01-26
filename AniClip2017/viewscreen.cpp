@@ -12,15 +12,3 @@ ViewScreen::~ViewScreen()
 {
     delete ui;
 }
-
-void ViewScreen::on_pushButton_7_clicked()
-{
-    ui->pushButton_7->hide();
-    ui->sideWidget->show();
-}
-
-void ViewScreen::on_pushButton_6_clicked()
-{
-    ui->sideWidget->hide();
-    ui->pushButton_7->show();
-}

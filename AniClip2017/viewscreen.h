@@ -16,9 +16,6 @@ public:
     ~ViewScreen();
 
 private slots:
-    void on_pushButton_7_clicked();
-
-    void on_pushButton_6_clicked();
 
 private:
     Ui::ViewScreen *ui;

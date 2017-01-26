@@ -71,12 +71,6 @@ bool MainWindow::init(QString config_filename)
                 viewScreen = new ViewScreen(this);
                 centralStack->addWidget(viewScreen);
                 centralStack->setCurrentIndex(0);
-
-                TagTreeWidget* test = new TagTreeWidget(this);
-                for (int i =0; i < 20; i++) {
-                    test->testAdd();
-                    test->testClear();
-                }
             }
 
             initSuccess_flag &= clipDbSuccess_flag;
