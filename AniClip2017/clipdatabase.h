@@ -33,6 +33,7 @@ public:
 
     bool addGroup(TagGroup oGroup);
 
+    bool sortThis();
 
 private:
     logger::Logger *log;
@@ -57,6 +58,8 @@ public:
     bool addTags(QStringList tags, QString groupName = "");
     TagGroup* addGroup(QString nGroupName);
     TagGroup* getGroup(QString groupName);
+
+    bool sortThis();
 
     QVector<TagGroup*> groups;
 

@@ -7,6 +7,70 @@
 
 #include <QFile>
 #include <QDir>
+#include <QtAlgorithms>
+
+
+bool compareTags(const QString &s1, const QString &s2) {
+
+    // ignore common prefix..
+    int i = 0;
+    while ((i < s1.length()) && (i < s2.length()) && (s1.at(i).toLower() == s2.at(i).toLower())) {
+        ++i;
+    }
+
+    // Look at Next item
+    //++i;
+
+    // something left to compare?
+    if ((i < s1.length()) && (i < s2.length()))
+    {
+       // get relevant/signficant number string for s1
+       int k = i;
+       QString n1 = "";
+       while ((k < s1.length()) && (s1.at(k).isNumber())) {
+           n1 += s1.at(k);
+           ++k;
+       }
+
+       // get relevant/signficant number string for s2
+       k = i;
+       QString n2 = "";
+       while ((k < s2.length()) && (s2.at(k).isNumber())) {
+           n2 += s2.at(k);
+           ++k;
+       }
+
+       // got two numbers to compare?
+       if (!n1.isEmpty() && !n2.isEmpty())
+       {
+           return n1.toInt() < n2.toInt();
+       }
+       else {
+           // not a number has to win over a number.. number could have ended earlier... same prefix..
+          if (!n1.isEmpty()) {
+              return false;
+          }
+          else if (!n2.isEmpty()) {
+              return true;
+          }
+          else {
+            return s1.at(i) < s2.at(i);
+          }
+       }
+    }
+    else {
+       // shortest string wins
+       return s1.length() < s2.length();
+    }
+
+    return false;
+}
+
+bool compareGroups(TagGroup *t1, TagGroup *t2) {
+    QString s1 = t1->getName();
+    QString s2 = t2->getName();
+    return compareTags(s1, s2);
+}
 
 TagGroup::TagGroup(logger::Logger *nLog, QObject *parent) : QObject(parent),
 log(nLog)
@@ -54,6 +118,11 @@ bool TagGroup::addGroup(TagGroup oGroup) {
     }
     log->info(QString("Added %1 new tags to %2 group").arg(numAdded).arg(groupName));
 
+    return true;
+}
+
+bool TagGroup::sortThis() {
+    qSort(groupTags.begin(), groupTags.end(), compareTags);
     return true;
 }
 
@@ -151,6 +220,16 @@ TagGroup* TagManager::getGroup(QString groupName) {
     }
 
     return rGroup;
+}
+
+bool TagManager::sortThis() {
+    qSort(groups.begin(), groups.end(), compareGroups);
+
+    for (int i = 0; i < groups.count(); i++) {
+        groups.at(i)->sortThis();
+    }
+
+    return true;
 }
 
 bool TagManager::containsGroup(QString nName) {
@@ -734,11 +813,15 @@ bool ClipDatabase::loadTagList(QString tagList_filename) {
             log->warn(QString("ClipDatabase.loadTagList: No TagList in config file"));
             importSuccess_flag = false;
         }
+
+        log->info("ClipDatabase.loadTagList:: Sorting results.");
+        tagManager->sortThis();
     }
     else{
         log->err(QString("ClipDatabase.loadTagList: TagManager is NULL"));
         importSuccess_flag = false;
     }
+
 
 
     return importSuccess_flag;

@@ -6,11 +6,15 @@
 
 #include "clipdatabase.h"
 
+namespace logger {
+class Logger;
+}
+
 class TagTreeWidget : public QTreeWidget
 {
     Q_OBJECT
 public:
-    explicit TagTreeWidget(QWidget *parent = 0);
+    explicit TagTreeWidget(logger::Logger *nLog, QWidget *parent = 0);
 
     void setClipDatabase(ClipDatabase *db);
 
@@ -23,8 +27,10 @@ public:
     QTreeWidgetItem* getTopLvl();
 
 
+
 private:
     ClipDatabase *clipDB;
+    logger::Logger *log;
 
     QVector <QTreeWidgetItem*> old_top;
     QVector <QTreeWidgetItem*> old_items;
