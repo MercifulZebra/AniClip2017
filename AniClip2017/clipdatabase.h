@@ -55,7 +55,7 @@ public:
 
     bool readTagLine(QString line);
     bool addTag(QString tag, QString groupName = "");
-    bool addTags(QStringList tags, QString groupName = "");
+    bool addTags(QStringList tags, QString groupName = QString());
     TagGroup* addGroup(QString nGroupName);
     TagGroup* getGroup(QString groupName);
 
@@ -93,6 +93,7 @@ public:
     int         epNum;
     TimeBound   bounds;
     QString     season;
+    int         year;
     QStringList tags;
     QString     localSrc;
     QString     link;
@@ -118,6 +119,8 @@ public:
     void writeListToFile(QTextStream &nStream);
     QString getName();
     void setName(QString nName);
+
+    int getClipCount();
 
     QVector<Clip*> clips;
 
@@ -145,6 +148,8 @@ public:
     //Get Functions
     QString getName();
     void setName(QString nName);
+
+    int getClipCount();
 
     ShowList* getShowList(QString show_name);
 
@@ -206,7 +211,7 @@ private:
     QString shows_filename;
 
 signals:
-    void infoUpdated();
+    void infoUpdated(const QString &);
 
 public slots:
 };

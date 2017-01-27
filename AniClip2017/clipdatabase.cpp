@@ -84,9 +84,11 @@ void TagGroup::setName(QString nName) {
 
 bool TagGroup::addTag(QString nTag) {
     bool addSuccess_flag = false;
-    if (!groupTags.contains(nTag)) {
-        groupTags.append(nTag);
-        addSuccess_flag = true;
+    if (!nTag.isEmpty()) {
+        if (!groupTags.contains(nTag)) {
+            groupTags.append(nTag);
+            addSuccess_flag = true;
+        }
     }
     return addSuccess_flag;
 }
@@ -96,6 +98,7 @@ bool TagGroup::addTags(QStringList nTags) {
 
     groupTags.append(nTags);
     groupTags.removeDuplicates();
+    groupTags.removeAll("");
 
     return addSuccess_flag;
 }
@@ -161,8 +164,8 @@ bool TagManager::readTagLine(QString line) {
         if (!nTags.isEmpty() && !nName.isEmpty()) {
             TagGroup *nGroup = new TagGroup(log, this);
             nGroup->setName(nName);
-            nGroup->addTags(tagList);
             groups.append(nGroup);
+            addTags(tagList, nGroup->getName());
             log->info(QString("Created new TagGroup %1. Added %2 tags.").arg(nGroup->getName()).arg(nGroup->getTags().count()));
         }
     }
@@ -175,8 +178,11 @@ bool TagManager::readTagLine(QString line) {
 }
 
 bool TagManager::addTag(QString tag, QString groupName) {
-    if (!groupName.isEmpty()) {
+    if (groupName.isEmpty()) {
         groupName = "General";
+    }
+    else {
+        getGroup("General")->addTag(tag);
     }
 
     TagGroup *nGroup = getGroup(groupName);
@@ -184,8 +190,12 @@ bool TagManager::addTag(QString tag, QString groupName) {
 }
 
 bool TagManager::addTags(QStringList tags, QString groupName) {
-    if (!groupName.isEmpty()) {
+
+    if (groupName.isEmpty()) {
         groupName = "General";
+    }
+    else {
+        getGroup("General")->addTags(tags);
     }
 
     TagGroup *nGroup = getGroup(groupName);
@@ -266,7 +276,7 @@ void Clip::setTimeBound(TimeBound nTimeBound) {
 void Clip::writeClipToFile(QTextStream &nStream) {
 
     nStream << showName << "[|]" << epNum << "[|]" << bounds.startTime.toString("hh:mm:ss") << "-" << bounds.endTime.toString("hh:mm:ss") << "[|]";
-    nStream << season << "[|]" << tags.join("|") << "[|]" << localSrc << "[|]" << link << "[|]" << note << endl;
+    nStream << season << "[|]" << year << "[|]" << tags.join("|") << "[|]" << localSrc << "[|]" << link << "[|]" << note << endl;
 }
 
 bool Clip::compareClip(Clip *oClip) {
@@ -321,6 +331,10 @@ QString ShowList::getName() {
 
 void ShowList::setName(QString nName) {
     showName = nName;
+}
+
+int ShowList::getClipCount() {
+    return clips.count();
 }
 
 void ShowList::insertClip(Clip *nClip) {
@@ -395,6 +409,15 @@ QString ClipList::getName() {
 
 void ClipList::setName(QString nName) {
     listName = nName;
+}
+
+int ClipList::getClipCount() {
+    int totalClips = 0;
+    for (int i = 0; i < shows.count(); i++) {
+        totalClips += shows.at(i)->getClipCount();
+    }
+
+    return totalClips;
 }
 
 ShowList* ClipList::getShowList(QString show_name) {
@@ -660,7 +683,6 @@ bool ClipDatabase::loadClips(QString clipList_filename) {
             bool withinList_flag = false;
             QString cListName = "";
             int numAddedtoList = 0;
-            int numAddedtoGeneral = 0;
 
 
             while(!nStream.atEnd()) {
@@ -701,14 +723,13 @@ bool ClipDatabase::loadClips(QString clipList_filename) {
                         nLists.append(cListName);
                         if (addNewClip(line, nLists) != NULL) {
                             numAddedtoList++;
-                            numAddedtoGeneral++;
                         }
                     }
 
                 }
             }
 
-            log->info(QString("Added %1 clips to general.").arg(numAddedtoGeneral));
+            log->info(QString("Added %1 new Clips.").arg(main_list->getClipCount()));
         }
         else {
             log->warn(QString("Unable to open file \"%1\".").arg(clipList_filename));
@@ -830,6 +851,7 @@ bool ClipDatabase::loadTagList(QString tagList_filename) {
 Clip* ClipDatabase::addNewClip(QString showName, int epNum, TimeBound time, QVector<QString> nLists) {
 
     int numListsAdded = 0;
+    int numClipsAdded = 0;
     bool clipAdded_flag = true;
 
     Clip* rClip = clipExists(showName, epNum, time);
@@ -863,7 +885,6 @@ Clip* ClipDatabase::addNewClip(QString showName, int epNum, TimeBound time, QVec
     }
 
     if (clipAdded_flag) {
-
 
         QVector<ClipList*> remainingLists = sub_lists;
 
@@ -914,7 +935,7 @@ Clip* ClipDatabase::addNewClip(QString clipLine, QVector<QString> nLists) {
 
     QStringList lineSplit = tLine.split("[|]");
 
-    if (lineSplit.count() == 8) {
+    if (lineSplit.count() == 9) {
         bool lineValid_flag = true;
 
         QString nShowName = lineSplit.at(0);
@@ -938,16 +959,19 @@ Clip* ClipDatabase::addNewClip(QString clipLine, QVector<QString> nLists) {
             nSeason = "Spring";
         }
 
-        QStringList tagSplit = lineSplit.at(4).split("|");
+        int nYear = lineSplit.at(4).toInt();
 
-        QString nSource = lineSplit.at(5);
-        QString nLink = lineSplit.at(6);
-        QString nNote = lineSplit.at(7);
+        QStringList tagSplit = lineSplit.at(5).split("|");
+
+        QString nSource = lineSplit.at(6);
+        QString nLink = lineSplit.at(7);
+        QString nNote = lineSplit.at(8);
 
 
         if (lineValid_flag) {
             rClip = addNewClip(nShowName, nEpNum, nTime, nLists);
             rClip->season = nSeason;
+            rClip->year = nYear;
             rClip->tags.append(tagSplit);
             rClip->tags.removeDuplicates();
 

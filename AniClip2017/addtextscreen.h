@@ -15,6 +15,8 @@ public:
     explicit AddTextScreen(QWidget *parent = 0);
     ~AddTextScreen();
 
+    bool init(QString config_filename);
+
 private:
     Ui::AddTextScreen *ui;
 };

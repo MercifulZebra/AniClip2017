@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
     }
 
     if (w.init(config_filename)) {
+        w.showMaximized();
         w.show();
         return a.exec();
     }

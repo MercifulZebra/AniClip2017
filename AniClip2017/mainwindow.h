@@ -5,8 +5,10 @@
 #include <QStackedWidget>
 
 class DebugWidget;
-class AddTextScreen;
+class EditScreen;
 class ViewScreen;
+class MainScreen;
+class AddScreen;
 
 namespace logger {
 class Logger;
@@ -32,9 +34,10 @@ public:
 
 
 public slots:
-    //void setMainScreen();
-    //void setAddScreen();
-    //void setVideoAddScreen();
+    void setEditScreen();
+    void setViewScreen();
+    void setMenuScreen();
+    void setAddScreen();
 
 private:
     Ui::MainWindow *ui;
@@ -45,10 +48,16 @@ private:
     QStackedWidget *centralStack;
 
 
-    DebugWidget *debugWidget;
-    AddTextScreen *addTextScreen;
-    ViewScreen *viewScreen;
+    DebugWidget     *debugWidget;
+    EditScreen      *editScreen;
+    ViewScreen      *viewScreen;
+    MainScreen      *menuScreen;
+    AddScreen       *addScreen;
 
+    int             editScreen_index;
+    int             viewScreen_index;
+    int             menuScreen_index;
+    int             addScreen_index;
 };
 
 #endif // MAINWINDOW_H

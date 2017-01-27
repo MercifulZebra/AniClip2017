@@ -12,3 +12,4 @@ AddTextScreen::~AddTextScreen()
 {
     delete ui;
 }
+

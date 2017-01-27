@@ -5,16 +5,13 @@
 #include "logger.h"
 
 #include "clipinfoedit.h"
-#include "ui_clipinfoedit.h"
 
 #include "debugwidget.h"
-#include "ui_debugwidget.h"
-
-#include "addtextscreen.h"
-#include "ui_addtextscreen.h"
-
+#include "editscreen.h"
 #include "viewscreen.h"
 #include "tagtreewidget.h"
+#include "mainscreen.h"
+#include "addscreen.h"
 
 #include <QStringListModel>
 #include <QMessageBox>
@@ -28,13 +25,20 @@ MainWindow::MainWindow(QWidget *parent) :
     log(NULL),
     clipDatabase(NULL),
     centralStack(NULL),
-    debugWidget(NULL)
+    debugWidget(NULL),
+    editScreen(NULL),
+    viewScreen(NULL),
+    menuScreen(NULL),
+    addScreen(NULL),
+    editScreen_index(-1),
+    viewScreen_index(-1),
+    menuScreen_index(-1),
+    addScreen_index(-1)
 {
     ui->setupUi(this);
     log = new logger::Logger(this);
 
-    centralStack = new QStackedWidget(this);
-    setCentralWidget(centralStack);
+    centralStack = ui->centralStack;
 
 }
 
@@ -68,9 +72,31 @@ bool MainWindow::init(QString config_filename)
                 }
 
 
-                viewScreen = new ViewScreen(this);
-                centralStack->addWidget(viewScreen);
-                centralStack->setCurrentIndex(0);
+                editScreen = new EditScreen(this);
+                if (editScreen->init(config_filename)) {
+                    editScreen_index = centralStack->addWidget(editScreen);
+                    connect(ui->editScreen_button, SIGNAL(clicked(bool)), this, SLOT(setEditScreen()));
+                }
+
+                menuScreen = new MainScreen(this);
+                if (menuScreen->init(config_filename)) {
+                    menuScreen_index = centralStack->addWidget(menuScreen);
+                    connect(ui->menuScreen_button, SIGNAL(clicked(bool)), this, SLOT(setMenuScreen()));
+                }
+
+                viewScreen = new ViewScreen(log, this);
+                if (viewScreen->init(config_filename, clipDatabase)) {
+                    viewScreen_index = centralStack->addWidget(viewScreen);
+                    connect(ui->viewScreen_button, SIGNAL(clicked(bool)), this, SLOT(setViewScreen()));
+                }
+
+                addScreen = new AddScreen(this);
+                if (addScreen->init(config_filename)) {
+                    addScreen_index = centralStack->addWidget(addScreen);
+                    connect(ui->addScreen_button, SIGNAL(clicked(bool)), this, SLOT(setAddScreen()));
+                }
+
+
             }
 
             initSuccess_flag &= clipDbSuccess_flag;
@@ -97,4 +123,31 @@ QString MainWindow::getError() {
     return  rString;
 }
 
+void MainWindow::setEditScreen() {
+    if (editScreen_index != -1) {
+        centralStack->setCurrentIndex(editScreen_index);
+        ui->pageTitle_label->setText("Edit Clips");
+    }
+}
 
+void MainWindow::setViewScreen() {
+    if (viewScreen_index != -1) {
+        centralStack->setCurrentIndex(viewScreen_index);
+        viewScreen->updateInfo();
+        ui->pageTitle_label->setText("View Clips");
+    }
+}
+
+void MainWindow::setMenuScreen() {
+    if (menuScreen_index != -1) {
+        centralStack->setCurrentIndex(menuScreen_index);
+        ui->pageTitle_label->setText("Menu");
+    }
+}
+
+void MainWindow::setAddScreen() {
+    if (addScreen_index != -1) {
+        centralStack->setCurrentIndex(addScreen_index);
+        ui->pageTitle_label->setText("Add Clips");
+    }
+}

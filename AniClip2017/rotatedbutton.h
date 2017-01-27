@@ -12,9 +12,11 @@ public:
 
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
     void setRotatedText(QString nText);
+    void setRotatedDeg(int nRot);
 
 private:
     QString rText;
+    int rotation_deg;
 
 signals:
 

@@ -14,10 +14,10 @@ class TagTreeWidget : public QTreeWidget
 {
     Q_OBJECT
 public:
-    explicit TagTreeWidget(logger::Logger *nLog, QWidget *parent = 0);
+    explicit TagTreeWidget(QWidget *parent = 0);
 
     void setClipDatabase(ClipDatabase *db);
-
+    void setLogger(logger::Logger *nLog);
     void clearTree();
 
     void testAdd();
@@ -40,7 +40,7 @@ private:
 signals:
 
 public slots:
-    void updateTags();
+    void updateTags(const QString &searchString);
 };
 
 #endif // TAGTREEWIDGET_H
