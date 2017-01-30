@@ -1,0 +1,48 @@
+#ClipList | 29 Jan YYYY 43:04
+List::General
+{
+
+	#TestShow3
+	TestShow3[|]4[|]00:00:10-00:00:30[|]Spring[|]2016[|]Tag1|Tag2|Tag3|SuperNewTag[|]"TestSource"[|][|]
+	TestShow3[|]4[|]00:00:10-00:00:50[|]Spring[|]2016[|][|][|][|]
+	TestShow3[|]4[|]00:00:10-00:00:55[|]Spring[|]2016[|][|][|][|]
+	TestShow3[|]4[|]00:00:20-00:00:40[|]Spring[|]2016[|][|][|][|]
+	TestShow3[|]4[|]00:00:30-00:00:50[|]Spring[|]2016[|][|][|][|]
+	TestShow3[|]4[|]00:00:40-00:01:00[|]Spring[|]2016[|][|][|][|]
+
+	#TestShow2
+	TestShow2[|]3[|]00:00:30-00:00:50[|]Spring[|]2016[|][|][|][|]
+
+	#TestShow0
+	TestShow0[|]1[|]00:00:10-00:00:30[|]Spring[|]2016[|][|][|][|]
+
+	#TestShow1
+	TestShow1[|]2[|]00:00:20-00:00:40[|]Spring[|]2016[|][|][|][|]
+
+	#ReallyLongShowTitle_TestForOne
+	ReallyLongShowTitle_TestForOne[|]2[|]00:00:20-00:00:40[|]Spring[|]2016[|][|][|][|]
+
+}
+
+List::TestList1
+{
+
+	#TestShow2
+	TestShow2[|]3[|]00:00:30-00:00:50[|]Spring[|]2016[|][|][|][|]
+
+	#TestShow3
+	TestShow3[|]4[|]00:00:10-00:00:30[|]Spring[|]2016[|]Tag1|Tag2|Tag3|SuperNewTag[|]"TestSource"[|][|]
+
+}
+
+List::TestList2
+{
+
+	#TestShow0
+	TestShow0[|]1[|]00:00:10-00:00:30[|]Spring[|]2016[|][|][|][|]
+
+	#TestShow1
+	TestShow1[|]2[|]00:00:20-00:00:40[|]Spring[|]2016[|][|][|][|]
+
+}
+

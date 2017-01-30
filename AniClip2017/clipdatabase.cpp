@@ -366,7 +366,8 @@ void ShowList::insertClip(Clip *nClip) {
 }
 
 ClipList::ClipList(logger::Logger *nLog, QObject *parent) : QObject(parent),
-    log(nLog)
+    log(nLog),
+    isVisible_flag(true)
 {
 
 }
@@ -402,6 +403,15 @@ void ClipList::writeListToFile(QTextStream &nStream) {
     nStream << "}" << endl << endl;
 
 }
+
+void ClipList::setVisible(bool isVisible) {
+   isVisible_flag = isVisible;
+}
+
+bool ClipList::isVisible() {
+    return isVisible_flag;
+}
+
 
 QString ClipList::getName() {
     return listName;

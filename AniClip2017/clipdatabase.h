@@ -145,6 +145,9 @@ public:
 
     void writeListToFile(QTextStream &nStream);
 
+    void setVisible(bool isVisible);
+    bool isVisible();
+
     //Get Functions
     QString getName();
     void setName(QString nName);
@@ -157,8 +160,12 @@ public:
 private:
     logger::Logger *log;
 
+public:
+
     QString listName;
     QVector<ShowList*> shows;
+
+    bool isVisible_flag;
 
 signals:
 
@@ -197,6 +204,9 @@ private:
     Clip* clipExists(QString tShowName, int tEpNum, TimeBound tTime);
 
     logger::Logger *log;
+
+
+public:
 
     ClipList* main_list;
     QStringList existingShows;

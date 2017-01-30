@@ -18,15 +18,6 @@ public:
 
     void setClipDatabase(ClipDatabase *db);
     void setLogger(logger::Logger *nLog);
-    void clearTree();
-
-    void testAdd();
-    void testClear();
-
-    QTreeWidgetItem* getTreeItem();
-    QTreeWidgetItem* getTopLvl();
-
-
 
 private:
     ClipDatabase *clipDB;

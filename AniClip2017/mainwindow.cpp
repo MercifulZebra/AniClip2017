@@ -96,6 +96,7 @@ bool MainWindow::init(QString config_filename)
                     connect(ui->addScreen_button, SIGNAL(clicked(bool)), this, SLOT(setAddScreen()));
                 }
 
+                setViewScreen();
 
             }
 

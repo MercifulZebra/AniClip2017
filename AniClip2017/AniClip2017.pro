@@ -27,7 +27,9 @@ SOURCES += main.cpp\
     landingscreen.cpp \
     mainscreen.cpp \
     editscreen.cpp \
-    addscreen.cpp
+    addscreen.cpp \
+    cliptreewidget.cpp \
+    listselectdialog.cpp
 
 HEADERS  += mainwindow.h \
     logger.h \
@@ -43,7 +45,9 @@ HEADERS  += mainwindow.h \
     landingscreen.h \
     mainscreen.h \
     editscreen.h \
-    addscreen.h
+    addscreen.h \
+    cliptreewidget.h \
+    listselectdialog.h
 
 FORMS    += mainwindow.ui \
     clipinfoedit.ui \
@@ -54,7 +58,8 @@ FORMS    += mainwindow.ui \
     landingscreen.ui \
     mainscreen.ui \
     editscreen.ui \
-    addscreen.ui
+    addscreen.ui \
+    listselectdialog.ui
 
 DISTFILES += \
     aniclip_config.txt

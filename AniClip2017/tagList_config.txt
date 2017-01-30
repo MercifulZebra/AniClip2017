@@ -1,0 +1,8 @@
+#TagList | 29 Jan YYYY 43:04
+
+name=General:tags=Colorful|Happy|Hate|I|MoreTags|SuperNewTag|Tags|Tag1|Tag2|Tag3|Tag6|Tag19|Tag44|Typing
+name=TestSet:tags=SuperNewTag|Tag1|Tag2|Tag3
+name=TestSetJ:tags=Hate|I|Tags|Typing
+name=TestSet2:tags=SuperNewTag|Tag2|Tag3|Tag6
+name=TestSet3:tags=Tag1|Tag2|Tag3|Tag6|Tag19|Tag44
+name=TestSe5:tags=Colorful|Happy|MoreTags
