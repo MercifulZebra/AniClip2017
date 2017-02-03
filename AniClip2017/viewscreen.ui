@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1585</width>
-    <height>670</height>
+    <height>704</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,7 +52,7 @@
         <property name="tabPosition">
          <enum>QTabWidget::West</enum>
         </property>
-        <widget class="QWidget" name="clipsTab" native="true">
+        <widget class="QWidget" name="clipsTab">
          <attribute name="title">
           <string>Clips</string>
          </attribute>
@@ -125,218 +125,42 @@
                      <string>Search Tools</string>
                     </attribute>
                     <layout class="QGridLayout" name="gridLayout_6">
-                     <item row="1" column="3" rowspan="3">
-                      <widget class="QGroupBox" name="groupBox_4">
+                     <item row="0" column="0" alignment="Qt::AlignTop">
+                      <widget class="QWidget" name="widget_5" native="true">
                        <property name="minimumSize">
                         <size>
-                         <width>30</width>
+                         <width>100</width>
                          <height>0</height>
                         </size>
                        </property>
-                       <property name="title">
-                        <string>Lists</string>
-                       </property>
-                       <layout class="QGridLayout" name="gridLayout_5">
-                        <item row="3" column="1">
-                         <widget class="QPushButton" name="pushButton_8">
-                          <property name="minimumSize">
-                           <size>
-                            <width>150</width>
-                            <height>40</height>
-                           </size>
-                          </property>
-                          <property name="text">
-                           <string>    Add New List    </string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="3" column="0">
-                         <spacer name="horizontalSpacer">
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                          <property name="sizeHint" stdset="0">
-                           <size>
-                            <width>40</width>
-                            <height>20</height>
-                           </size>
-                          </property>
-                         </spacer>
-                        </item>
-                        <item row="2" column="0" colspan="2">
-                         <widget class="QListWidget" name="listWidget"/>
-                        </item>
-                        <item row="1" column="0" colspan="2">
-                         <widget class="QPushButton" name="pushButton_7">
-                          <property name="minimumSize">
-                           <size>
-                            <width>0</width>
-                            <height>30</height>
-                           </size>
-                          </property>
-                          <property name="text">
-                           <string>Select None</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="0" colspan="2">
-                         <widget class="QPushButton" name="pushButton_6">
-                          <property name="minimumSize">
-                           <size>
-                            <width>0</width>
-                            <height>30</height>
-                           </size>
-                          </property>
-                          <property name="text">
-                           <string>Select All</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                     </item>
-                     <item row="1" column="0" colspan="2">
-                      <widget class="QGroupBox" name="searchGroupBox">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="title">
-                        <string>Info</string>
-                       </property>
-                       <layout class="QGridLayout" name="gridLayout_8">
-                        <property name="verticalSpacing">
-                         <number>15</number>
+                       <layout class="QGridLayout" name="gridLayout_13">
+                        <property name="leftMargin">
+                         <number>0</number>
                         </property>
-                        <item row="3" column="0" colspan="5">
-                         <widget class="QLineEdit" name="lineEdit_3">
-                          <property name="text">
-                           <string/>
-                          </property>
-                          <property name="placeholderText">
-                           <string>Note Keywords (Sepate by comma to search for either word/set of words)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="3" colspan="2">
-                         <widget class="QLineEdit" name="lineEdit_4">
-                          <property name="placeholderText">
-                           <string>Year</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="2">
-                         <widget class="QComboBox" name="comboBox"/>
-                        </item>
-                        <item row="2" column="0">
-                         <widget class="QLineEdit" name="lineEdit_7">
-                          <property name="placeholderText">
-                           <string>Clip Start Time (ex. &gt;15:20, &lt;3:20, 4:20-6:90)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="0" colspan="5">
-                         <widget class="QLineEdit" name="lineEdit">
-                          <property name="layoutDirection">
-                           <enum>Qt::LeftToRight</enum>
-                          </property>
-                          <property name="placeholderText">
-                           <string>Show Name</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="0" colspan="2">
-                         <widget class="QLineEdit" name="lineEdit_2">
-                          <property name="placeholderText">
-                           <string>Ep. Range (Seperated by comma or dash)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="2" column="1">
-                         <widget class="QLineEdit" name="lineEdit_9">
-                          <property name="placeholderText">
-                           <string>Clip End Time</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="2" column="2" colspan="3">
-                         <widget class="QLineEdit" name="lineEdit_8">
-                          <property name="placeholderText">
-                           <string>Clip Length</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                     </item>
-                     <item row="2" column="1" rowspan="2">
-                      <widget class="QWidget" name="widget_3" native="true">
-                       <property name="maximumSize">
-                        <size>
-                         <width>150</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">QPushButton {text-align:  left}</string>
-                       </property>
-                       <layout class="QVBoxLayout" name="verticalLayout">
-                        <item>
-                         <widget class="QPushButton" name="pushButton">
+                        <property name="topMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item row="0" column="0">
+                         <widget class="QWidget" name="widget_4" native="true">
                           <property name="minimumSize">
                            <size>
-                            <width>0</width>
-                            <height>40</height>
+                            <width>200</width>
+                            <height>0</height>
                            </size>
                           </property>
-                          <property name="text">
-                           <string>  Clear Clip Terms</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QPushButton" name="pushButton_4">
-                          <property name="minimumSize">
+                          <property name="maximumSize">
                            <size>
-                            <width>0</width>
-                            <height>40</height>
+                            <width>16777215</width>
+                            <height>400</height>
                            </size>
                           </property>
-                          <property name="text">
-                           <string>  Clear Tags</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QPushButton" name="pushButton_5">
-                          <property name="minimumSize">
-                           <size>
-                            <width>0</width>
-                            <height>40</height>
-                           </size>
-                          </property>
-                          <property name="text">
-                           <string>  Clear All</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                     </item>
-                     <item row="1" column="2" rowspan="3">
-                      <widget class="QGroupBox" name="groupBox">
-                       <property name="title">
-                        <string>Tags</string>
-                       </property>
-                       <layout class="QGridLayout" name="gridLayout_9">
-                        <item row="1" column="1">
-                         <widget class="QWidget" name="widget_2" native="true">
-                          <property name="layoutDirection">
-                           <enum>Qt::LeftToRight</enum>
-                          </property>
-                          <layout class="QGridLayout" name="gridLayout_10">
+                          <layout class="QGridLayout" name="gridLayout_12">
                            <property name="leftMargin">
                             <number>0</number>
                            </property>
@@ -349,126 +173,356 @@
                            <property name="bottomMargin">
                             <number>0</number>
                            </property>
+                           <item row="0" column="0">
+                            <widget class="QLabel" name="label_5">
+                             <property name="font">
+                              <font>
+                               <pointsize>24</pointsize>
+                              </font>
+                             </property>
+                             <property name="text">
+                              <string>Search Clips</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="1" column="0" colspan="2">
+                            <widget class="QGroupBox" name="searchGroupBox">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="title">
+                              <string>Info</string>
+                             </property>
+                             <layout class="QGridLayout" name="gridLayout_8">
+                              <property name="verticalSpacing">
+                               <number>15</number>
+                              </property>
+                              <item row="3" column="0" colspan="5">
+                               <widget class="QLineEdit" name="lineEdit_3">
+                                <property name="text">
+                                 <string/>
+                                </property>
+                                <property name="placeholderText">
+                                 <string>Note Keywords (Sepate by comma to search for either word/set of words)</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="1" column="3" colspan="2">
+                               <widget class="QLineEdit" name="lineEdit_4">
+                                <property name="placeholderText">
+                                 <string>Year</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="1" column="2">
+                               <widget class="QComboBox" name="comboBox"/>
+                              </item>
+                              <item row="2" column="0">
+                               <widget class="QLineEdit" name="lineEdit_7">
+                                <property name="placeholderText">
+                                 <string>Clip Start Time (ex. &gt;15:20, &lt;3:20, 4:20-6:90)</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="0" column="0" colspan="5">
+                               <widget class="QLineEdit" name="lineEdit">
+                                <property name="layoutDirection">
+                                 <enum>Qt::LeftToRight</enum>
+                                </property>
+                                <property name="placeholderText">
+                                 <string>Show Name</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="1" column="0" colspan="2">
+                               <widget class="QLineEdit" name="lineEdit_2">
+                                <property name="placeholderText">
+                                 <string>Ep. Range (Seperated by comma or dash)</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="2" column="1">
+                               <widget class="QLineEdit" name="lineEdit_9">
+                                <property name="placeholderText">
+                                 <string>Clip End Time</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="2" column="2" colspan="3">
+                               <widget class="QLineEdit" name="lineEdit_8">
+                                <property name="placeholderText">
+                                 <string>Clip Length</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </widget>
+                           </item>
+                           <item row="1" column="2" rowspan="2">
+                            <widget class="QGroupBox" name="groupBox">
+                             <property name="title">
+                              <string>Tags</string>
+                             </property>
+                             <layout class="QGridLayout" name="gridLayout_9">
+                              <item row="1" column="1">
+                               <widget class="QWidget" name="widget_2" native="true">
+                                <property name="layoutDirection">
+                                 <enum>Qt::LeftToRight</enum>
+                                </property>
+                                <layout class="QGridLayout" name="gridLayout_10">
+                                 <property name="leftMargin">
+                                  <number>0</number>
+                                 </property>
+                                 <property name="topMargin">
+                                  <number>0</number>
+                                 </property>
+                                 <property name="rightMargin">
+                                  <number>0</number>
+                                 </property>
+                                 <property name="bottomMargin">
+                                  <number>0</number>
+                                 </property>
+                                </layout>
+                               </widget>
+                              </item>
+                              <item row="3" column="3">
+                               <widget class="QPushButton" name="pushButton_2">
+                                <property name="text">
+                                 <string>Add To Key</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="0" column="4">
+                               <widget class="QLabel" name="label_2">
+                                <property name="text">
+                                 <string>Sub Tags</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="1" column="2" rowspan="2" colspan="2">
+                               <widget class="QScrollArea" name="scrollArea">
+                                <property name="widgetResizable">
+                                 <bool>true</bool>
+                                </property>
+                                <widget class="QWidget" name="scrollAreaWidgetContents">
+                                 <property name="geometry">
+                                  <rect>
+                                   <x>0</x>
+                                   <y>0</y>
+                                   <width>212</width>
+                                   <height>260</height>
+                                  </rect>
+                                 </property>
+                                </widget>
+                               </widget>
+                              </item>
+                              <item row="3" column="4">
+                               <widget class="QLineEdit" name="lineEdit_6">
+                                <property name="toolTip">
+                                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Any clip must have &lt;span style=&quot; font-weight:600;&quot;&gt;atleast one &lt;/span&gt;of the added sub tags to be shown.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                </property>
+                                <property name="placeholderText">
+                                 <string>Add Sub Tag</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="3" column="2">
+                               <widget class="QLineEdit" name="lineEdit_5">
+                                <property name="toolTip">
+                                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A clip will be required to have all of the key tags added to be shown.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                                </property>
+                                <property name="text">
+                                 <string/>
+                                </property>
+                                <property name="placeholderText">
+                                 <string>Add Key Tag</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="3" column="5">
+                               <widget class="QPushButton" name="pushButton_3">
+                                <property name="text">
+                                 <string>Add To Sub</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="0" column="2">
+                               <widget class="QLabel" name="label">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>0</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="text">
+                                 <string>Key Tags</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="1" column="4" rowspan="2" colspan="2">
+                               <widget class="QScrollArea" name="scrollArea_2">
+                                <property name="widgetResizable">
+                                 <bool>true</bool>
+                                </property>
+                                <widget class="QWidget" name="scrollAreaWidgetContents_2">
+                                 <property name="geometry">
+                                  <rect>
+                                   <x>0</x>
+                                   <y>0</y>
+                                   <width>212</width>
+                                   <height>260</height>
+                                  </rect>
+                                 </property>
+                                </widget>
+                               </widget>
+                              </item>
+                             </layout>
+                            </widget>
+                           </item>
+                           <item row="1" column="3" rowspan="2">
+                            <widget class="QGroupBox" name="groupBox_4">
+                             <property name="minimumSize">
+                              <size>
+                               <width>30</width>
+                               <height>0</height>
+                              </size>
+                             </property>
+                             <property name="title">
+                              <string>Lists</string>
+                             </property>
+                             <layout class="QGridLayout" name="gridLayout_5">
+                              <item row="3" column="1">
+                               <widget class="QPushButton" name="pushButton_8">
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>150</width>
+                                  <height>40</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string>    Add New List    </string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="3" column="0">
+                               <spacer name="horizontalSpacer">
+                                <property name="orientation">
+                                 <enum>Qt::Horizontal</enum>
+                                </property>
+                                <property name="sizeHint" stdset="0">
+                                 <size>
+                                  <width>40</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                               </spacer>
+                              </item>
+                              <item row="2" column="0" colspan="2">
+                               <widget class="QListWidget" name="listWidget"/>
+                              </item>
+                              <item row="1" column="0" colspan="2">
+                               <widget class="QPushButton" name="pushButton_7">
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>0</width>
+                                  <height>30</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string>Select None</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item row="0" column="0" colspan="2">
+                               <widget class="QPushButton" name="pushButton_6">
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>0</width>
+                                  <height>30</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string>Select All</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </widget>
+                           </item>
+                           <item row="2" column="0">
+                            <spacer name="verticalSpacer">
+                             <property name="orientation">
+                              <enum>Qt::Vertical</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>20</width>
+                               <height>40</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item row="2" column="1">
+                            <widget class="QWidget" name="widget_3" native="true">
+                             <property name="maximumSize">
+                              <size>
+                               <width>150</width>
+                               <height>16777215</height>
+                              </size>
+                             </property>
+                             <property name="styleSheet">
+                              <string notr="true">QPushButton {text-align:  left}</string>
+                             </property>
+                             <layout class="QVBoxLayout" name="verticalLayout">
+                              <item>
+                               <widget class="QPushButton" name="pushButton">
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>0</width>
+                                  <height>40</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string>  Clear Clip Terms</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QPushButton" name="pushButton_4">
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>0</width>
+                                  <height>40</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string>  Clear Tags</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QPushButton" name="pushButton_5">
+                                <property name="minimumSize">
+                                 <size>
+                                  <width>0</width>
+                                  <height>40</height>
+                                 </size>
+                                </property>
+                                <property name="text">
+                                 <string>  Clear All</string>
+                                </property>
+                               </widget>
+                              </item>
+                             </layout>
+                            </widget>
+                           </item>
                           </layout>
                          </widget>
                         </item>
-                        <item row="3" column="3">
-                         <widget class="QPushButton" name="pushButton_2">
-                          <property name="text">
-                           <string>Add To Key</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="4">
-                         <widget class="QLabel" name="label_2">
-                          <property name="text">
-                           <string>Sub Tags</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="2" rowspan="2" colspan="2">
-                         <widget class="QScrollArea" name="scrollArea">
-                          <property name="widgetResizable">
-                           <bool>true</bool>
-                          </property>
-                          <widget class="QWidget" name="scrollAreaWidgetContents">
-                           <property name="geometry">
-                            <rect>
-                             <x>0</x>
-                             <y>0</y>
-                             <width>235</width>
-                             <height>237</height>
-                            </rect>
-                           </property>
-                          </widget>
-                         </widget>
-                        </item>
-                        <item row="3" column="4">
-                         <widget class="QLineEdit" name="lineEdit_6">
-                          <property name="toolTip">
-                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Any clip must have &lt;span style=&quot; font-weight:600;&quot;&gt;atleast one &lt;/span&gt;of the added sub tags to be shown.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                          </property>
-                          <property name="placeholderText">
-                           <string>Add Sub Tag</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="3" column="2">
-                         <widget class="QLineEdit" name="lineEdit_5">
-                          <property name="toolTip">
-                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A clip will be required to have all of the key tags added to be shown.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                          </property>
-                          <property name="text">
-                           <string/>
-                          </property>
-                          <property name="placeholderText">
-                           <string>Add Key Tag</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="3" column="5">
-                         <widget class="QPushButton" name="pushButton_3">
-                          <property name="text">
-                           <string>Add To Sub</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="2">
-                         <widget class="QLabel" name="label">
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
-                          <property name="text">
-                           <string>Key Tags</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="4" rowspan="2" colspan="2">
-                         <widget class="QScrollArea" name="scrollArea_2">
-                          <property name="widgetResizable">
-                           <bool>true</bool>
-                          </property>
-                          <widget class="QWidget" name="scrollAreaWidgetContents_2">
-                           <property name="geometry">
-                            <rect>
-                             <x>0</x>
-                             <y>0</y>
-                             <width>235</width>
-                             <height>237</height>
-                            </rect>
-                           </property>
-                          </widget>
-                         </widget>
-                        </item>
                        </layout>
-                      </widget>
-                     </item>
-                     <item row="2" column="0" rowspan="2">
-                      <spacer name="verticalSpacer">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="label_5">
-                       <property name="font">
-                        <font>
-                         <pointsize>24</pointsize>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string>Search Clips</string>
-                       </property>
                       </widget>
                      </item>
                     </layout>
